@@ -60,7 +60,7 @@ class Bot
 
                     var buttonArray = new InlineKeyboardButton[][] { yesButtonRow, noButtonRow };
 
-                    InlineKeyboardMarkup ikButtons = new InlineKeyboardMarkup(buttonArray);
+                    var ikButtons = new InlineKeyboardMarkup(buttonArray);
 
                     await bot.SendChatActionAsync(chatId, ChatAction.Typing);
                     await bot.SendTextMessageAsync(chatId, "Are you sure you want to remove all the files?", replyMarkup: ikButtons);
@@ -226,23 +226,19 @@ class Bot
         (ITelegramBotClient bot, string path, long chatId)
     {
         string[] filesArray = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
+        var iButtonsArrayList = new List<InlineKeyboardButton[]>();
 
         if (filesArray.Length == 0)
         {
             await bot.SendTextMessageAsync(chatId, "Your folder's empty :(");
             return;
         }
-
-        for (int i = 0; i < filesArray.Length; i++)
-            filesArray[i] = Path.GetFileNameWithoutExtension(filesArray[i]);
-
-        var iButtonsArrayList = new List<InlineKeyboardButton[]>();
-
+        
         for (int i = 0; i < filesArray.Length; i++)
         {
             var iButtonsList = new List<InlineKeyboardButton>()
             {
-                InlineKeyboardButton.WithCallbackData(filesArray[i])
+                InlineKeyboardButton.WithCallbackData(Path.GetFileNameWithoutExtension(filesArray[i]))
             };
             iButtonsArrayList.Add(iButtonsList.ToArray());
         }
