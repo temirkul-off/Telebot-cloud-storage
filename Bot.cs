@@ -126,7 +126,7 @@ class Bot
                 var chatId = cbQuery.Message.Chat.Id;
 
                 Directory.CreateDirectory(userFolder);
-                string[] filesArray = Directory.GetFiles(userFolder, "*", SearchOption.TopDirectoryOnly);
+                var filesArray = Directory.GetFiles(userFolder, "*", SearchOption.TopDirectoryOnly);
 
                 Console.WriteLine("Callback from " + cbQuery.From.FirstName.ToString() + ": " + cbQuery.Data.ToString());
 
@@ -139,7 +139,7 @@ class Bot
                         return;
                     }
 
-                    DirectoryInfo dir = new DirectoryInfo(userFolder);
+                    var dir = new DirectoryInfo(userFolder);
                     foreach (FileInfo file in dir.EnumerateFiles())
                     {
                         file.Delete();
@@ -225,7 +225,7 @@ class Bot
     public static async void ShowFilesAsync
         (ITelegramBotClient bot, string path, long chatId)
     {
-        string[] filesArray = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
+        var filesArray = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
         var iButtonsArrayList = new List<InlineKeyboardButton[]>();
 
         if (filesArray.Length == 0)
