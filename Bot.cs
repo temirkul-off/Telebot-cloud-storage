@@ -38,7 +38,7 @@ class Bot
 
                 if (message.Text == "/files")
                 {
-                    ShowFiles(bot, userFolder, chatId);
+                    ShowFilesAsync(bot, userFolder, chatId);
                     return;
                 }
 
@@ -222,7 +222,7 @@ class Bot
         await bot.SendTextMessageAsync(chatId, text: $"The file has been successfully saved as \n{fileName}");
     }
 
-    public static async void ShowFiles
+    public static async void ShowFilesAsync
         (ITelegramBotClient bot, string path, long chatId)
     {
         string[] filesArray = Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly);
