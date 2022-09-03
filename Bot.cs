@@ -7,7 +7,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 class Bot
 {
-    public static ITelegramBotClient bot = new TelegramBotClient("<Insert the token here>");
+    public static ITelegramBotClient bot = new TelegramBotClient("<Insert the token you've got from BotFather here>");
     public static async Task HandleUpdateAsync
         (ITelegramBotClient bot, Update u, CancellationToken cToken)
     {
