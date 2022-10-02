@@ -171,19 +171,19 @@ class Bot
                     return;
                 }
 
-                for (int i = 0; i < filesArray.Length; i++)
+                foreach (string file in filesArray)
                 {
-                    if (Path.GetFileNameWithoutExtension(filesArray[i]) == cbQuery.Data)
+                    if (Path.GetFileNameWithoutExtension(file) == cbQuery.Data)
                     {
                         await bot.SendChatActionAsync(chatId, ChatAction.Typing);
                         Message uploadMessage = await bot.SendTextMessageAsync(chatId, "Downloading...");
 
                         await bot.SendChatActionAsync(chatId, ChatAction.UploadDocument);
-                        await using Stream stream = System.IO.File.OpenRead(filesArray[i]);
+                        await using Stream stream = System.IO.File.OpenRead(file);
 
                         await bot.SendDocumentAsync(
                             chatId: chatId,
-                            document: new InputOnlineFile(content: stream, fileName: Path.GetFileName(filesArray[i]))
+                            document: new InputOnlineFile(content: stream, fileName: Path.GetFileName(file))
                             );
 
                         await bot.DeleteMessageAsync(chatId, uploadMessage.MessageId, cToken);
